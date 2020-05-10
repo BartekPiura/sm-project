@@ -21,8 +21,8 @@ str(cars)
 #horsepower should be numeric so we have to convert that
 cars$horsepower <- as.numeric(cars$horsepower)
 
-#in order to obtain colors in our plot we have to change the type to factor 
-#tu na razie to zakomentowalem bo wtedy summarytools nie robi statystyk dla wszystkich kolumn 
+#in order to obtain colors in our plot we have to change the types to factor 
+#to na razie tak zostawilem bo w zaleznosci jakie wykresy bedziemy chcieli miec to trzeba bedzie to zmienic albo nie 
 cars$cylinders <- as.factor(cars$cylinders)
 
 cars$model_year <- as.factor(cars$model_year)
