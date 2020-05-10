@@ -4,6 +4,8 @@ library(ggplot2)
 
 library(summarytools)
 
+auto.mpg<-read.table("data/auto-mpg.data",header=TRUE)
+
 #converting '?' to NA
 auto.mpg$horsepower[auto.mpg$horsepower=='?']<- NA
 
