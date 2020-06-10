@@ -110,7 +110,7 @@ ggplot(cars , aes(x=country, y= mpg/weight, color=country))+geom_boxplot()+ geom
 
 ggplot(cars, aes(x=mpg,y=horsepower))+geom_point() + geom_smooth(se=FALSE)
 
-# two clusters are formed , adding one more variable hpcat , hpcat=1 for hp>50 and 0 for hp<=50
+
 
 
 
