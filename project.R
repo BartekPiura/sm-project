@@ -105,7 +105,7 @@ ggplot(cars , aes(x=country, y= mpg, color=country))+geom_boxplot()+ geom_hline(
 
 
 #mpg/weight and country BARTLOMIEJ PIURA DESIGN
-ggplot(cars , aes(x=country, y= mpg/weight, color=country))+geom_boxplot()+ geom_hline(yintercept = mean(cars$mpg/cars$weigh), color="red",linetype="dotted",size=1.5)
+ggplot(cars , aes(x=country, y= mpg*weight, color=country))+geom_boxplot()+ geom_hline(yintercept = mean(cars$mpg/cars$weigh), color="red",linetype="dotted",size=1.5)
 
 
 ggplot(cars, aes(x=mpg,y=horsepower))+geom_point() + geom_smooth(se=FALSE)
