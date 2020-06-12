@@ -8,16 +8,16 @@ library(summarytools)
 
 auto.mpg<-read.table("data/auto-mpg.data",header=TRUE)
 
-#converting '?' to NA
+#convert '?' to NA
 auto.mpg$horsepower[auto.mpg$horsepower=='?']<- NA
 
-#checking null values
+#check null values
 sapply(auto.mpg, function(x) sum(is.na(x)))
 
-#dropping rows with missing values
+#drop rows with missing values
 cars <- na.omit(auto.mpg)
 
-#dropping records with 3 and 5 cylinders
+#drop records with 3 and 5 cylinders
 cars<-cars[!(cars$cylinders==3 | cars$cylinders==5),]
 
 
@@ -27,8 +27,8 @@ str(cars)
 #horsepower should be numeric so we have to convert that
 cars$horsepower <- as.numeric(cars$horsepower)
 
-#in order to obtain colors in our plot we have to change the types to factor 
-#to na razie tak zostawilem bo w zaleznosci jakie wykresy bedziemy chcieli miec to trzeba bedzie to zmienic albo nie 
+#Change the data types
+
 cars$cylinders <- as.factor(cars$cylinders)
 
 cars$model_year <- as.factor(cars$model_year)
@@ -36,7 +36,7 @@ cars$model_year <- as.factor(cars$model_year)
 cars$origin <- as.factor(cars$origin)
 
 
-#create country column and fill with values based on origin country code
+#create the country column and fill with values based on origin country code
 cars["country"]
 cars$country[cars$origin == 1] <- 'USA'
 cars$country[cars$origin == 2] <- 'EUROPE'
@@ -70,30 +70,29 @@ ggplot(cars, aes(x=mpg, y= weight,color=cylinders))+geom_point()
 
 
 # negative correlation in displacement and mpg
-# displacement increases with number of cylinders (obvious)
+# displacement increases with number of cylinders
 # very high correlation b/w cylinders and displacement
 
 ggplot(cars, aes(x=displacement,y=mpg,color=cylinders))+geom_point()
 
 
-# no apparent descriptive relation between horsepower and mpg
+# negative correlation between horsepower and mpg
 ggplot(cars, aes(x=horsepower,y=mpg,color=cylinders)) + geom_point()
 
 
-# acceleration variable is not adding considerable strenght to predictive model if included.
+# acceleration and mpg plot
 ggplot(cars,aes(x=acceleration,y=mpg,color=cylinders))+geom_point()
 
 
 
+# cars with 8 cylinders had come from USA, after 1980 USA manufacture turned to manufacture 4 cylinder cars
+# cars from EUROPE and JAPAN are more fuel efficient
 ggplot(cars, aes(x=model_year,fill=country))+geom_bar()+facet_grid(cylinders~.)
 
 
-# cars with 8 cylinders had come from USA, after 1980 USA manufacture turned to manufacture 4 cylinder cars
-# cars from EUROPE and JAPAN are more fuel efficient
-
-
+#calculate the mean of mpg for every year
 mean_mpg_year_country <- aggregate(x=cars$mpg,by = list(country=cars$country,model_year=cars$model_year),FUN = mean)
-#average mpg for every year group by country
+#average mpg for every year grouped by country
 ggplot(mean_mpg_year_country , aes(x=model_year, y= x, color=country))+geom_point()+geom_smooth(aes(group=country),method=lm,se=FALSE)+labs(y="mean mpg")
 
 #mpg and country
@@ -107,7 +106,7 @@ ggplot(cars , aes(x=country, y= mpg, color=country))+geom_boxplot()+ geom_hline(
 above_avg_mpg <- nrow(cars[cars$country == 'USA' & cars$mpg < mean(cars$mpg), ]) / nrow(cars[cars$country == 'USA', ])
 
 
-#mpg/weight and country BARTLOMIEJ PIURA DESIGN
+#mpg*weight by country
 ggplot(cars , aes(x=country, y= mpg*weight, color=country))+geom_boxplot()+ geom_hline(yintercept = mean(cars$mpg*cars$weigh), color="red",linetype="dotted",size=1.5)
 
 
@@ -125,6 +124,7 @@ cars_statistics
 cars_statistics<-as.numeric(cars_statistics)
 x<-c(48,49,50,51,52)
 
+#display min and max 
 print("MIN MPG: ")
 print(cars[cars$mpg==cars_statistics[48],])
 print(paste0("Q1 MPG: ",cars_statistics[49]))
