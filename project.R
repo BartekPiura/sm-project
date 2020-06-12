@@ -103,6 +103,9 @@ ggplot(mean_mpg_year_country , aes(x=model_year, y= x, color=country))+geom_poin
 
 ggplot(cars , aes(x=country, y= mpg, color=country))+geom_boxplot()+ geom_hline(yintercept = mean(cars$mpg), color="red",linetype="dotted",size=1.5)
 
+# number of cars in USA above average
+above_avg_mpg <- nrow(cars[cars$country == 'USA' & cars$mpg < mean(cars$mpg), ]) / nrow(cars[cars$country == 'USA', ])
+
 
 #mpg/weight and country BARTLOMIEJ PIURA DESIGN
 ggplot(cars , aes(x=country, y= mpg*weight, color=country))+geom_boxplot()+ geom_hline(yintercept = mean(cars$mpg*cars$weigh), color="red",linetype="dotted",size=1.5)
